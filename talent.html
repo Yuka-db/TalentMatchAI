@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talentegrity ASN</title>
+    <title>Talentegrity ASN - Talent Match</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,59 +15,71 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #93c5fd 100%);
+            background: linear-gradient(135deg, #4A7FE8 0%, #6B9FFF 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
 
         .sidebar {
+            background: rgba(37, 79, 189, 0.6);
+            backdrop-filter: blur(10px);
+            min-height: 100vh;
+            padding: 30px 20px;
             position: fixed;
+            width: 250px;
             left: 0;
             top: 0;
-            width: 280px;
-            height: 100vh;
-            background: rgba(30, 58, 138, 0.3);
-            backdrop-filter: blur(10px);
-            padding: 30px 20px;
-            display: flex;
-            flex-direction: column;
             z-index: 1000;
         }
 
-        .logo {
+        .logo-section {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 60px;
-            padding: 0 10px;
+            gap: 10px;
+            margin-bottom: 50px;
+            padding-left: 10px;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 50px;
+        .logo-bars {
             display: flex;
-            gap: 5px;
+            gap: 3px;
         }
 
         .logo-bar {
-            width: 8px;
-            border-radius: 4px;
+            width: 4px;
+            border-radius: 2px;
         }
 
-        .logo-bar:nth-child(1) { background: #ef4444; height: 50%; align-self: flex-end; }
-        .logo-bar:nth-child(2) { background: #fbbf24; height: 70%; align-self: flex-end; }
-        .logo-bar:nth-child(3) { background: #60a5fa; height: 100%; }
+        .logo-bar:nth-child(1) {
+            height: 30px;
+            background: #FF6B6B;
+        }
+
+        .logo-bar:nth-child(2) {
+            height: 35px;
+            background: #FFA500;
+        }
+
+        .logo-bar:nth-child(3) {
+            height: 25px;
+            background: #4ECDC4;
+        }
 
         .logo-text {
             color: white;
-            font-size: 24px;
             font-weight: 600;
-            line-height: 1.2;
+            font-size: 18px;
+        }
+
+        .logo-text small {
+            display: block;
+            font-size: 16px;
+            font-weight: 400;
         }
 
         .nav-menu {
             list-style: none;
-            margin-bottom: auto;
+            padding: 0;
         }
 
         .nav-item {
@@ -79,624 +91,362 @@
             align-items: center;
             gap: 15px;
             padding: 15px 20px;
-            color: rgba(255, 255, 255, 0.8);
+            color: white;
             text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-size: 16px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            font-size: 15px;
         }
 
         .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .nav-link.active {
             background: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .nav-link i {
-            font-size: 20px;
-            width: 24px;
         }
 
         .profile-section {
-            margin-top: auto;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .profile-label {
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            padding-left: 10px;
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 20px;
         }
 
         .profile-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            color: white;
+        }
+
+        .profile-info {
             display: flex;
             align-items: center;
             gap: 12px;
             margin-bottom: 15px;
-            padding: 5px 10px;
         }
 
         .profile-avatar {
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: #fbbf24;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: #1e3a8a;
+            object-fit: cover;
         }
 
-        .profile-info h6 {
-            color: white;
-            font-size: 15px;
+        .profile-details h6 {
             margin: 0;
+            font-size: 14px;
             font-weight: 600;
         }
 
-        .profile-info p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 13px;
+        .profile-details p {
             margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
         }
 
         .logout-btn {
             width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 10px;
+            background: white;
+            color: #4A7FE8;
+            border: none;
             border-radius: 8px;
-            color: white;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .main-content {
-            margin-left: 280px;
-            padding: 30px 40px;
+            margin-left: 250px;
+            padding: 40px;
         }
 
         .page-title {
-            color: black;
-            font-size: 42px;
+            color: white;
+            font-size: 36px;
             font-weight: 700;
             margin-bottom: 40px;
         }
 
-        /* Dashboard Specific Styles */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .header-title h1 {
-            color: white;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .header-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
-        }
-
-        .search-box {
-            position: relative;
-            width: 350px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 14px 50px 14px 20px;
-            border: none;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            color: white;
-            font-size: 14px;
-        }
-
-        .search-box input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .search-box button {
-            position: absolute;
-            right: 5px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .search-box button:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .welcome-card {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.4) 0%, rgba(59, 130, 246, 0.3) 100%);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(96, 165, 250, 0.3) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .welcome-content {
-            flex: 1;
-            z-index: 1;
-        }
-
-        .welcome-content h2 {
-            color: white;
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 25px;
-        }
-
-        .welcome-text {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            max-width: 600px;
-        }
-
-        .welcome-subtext {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
-            line-height: 1.6;
-            max-width: 600px;
-        }
-
-        .stats-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 30px;
-            z-index: 1;
-        }
-
-        .stat-card {
-            background: rgba(30, 58, 138, 0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 20px 30px;
-            min-width: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .stat-info h6 {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .stat-info .stat-number {
-            color: white;
-            font-size: 36px;
-            font-weight: 700;
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-        }
-
-        .profile-display {
-            position: relative;
-            z-index: 1;
-        }
-
-        .profile-circle {
-            width: 280px;
-            height: 280px;
-            background: linear-gradient(135deg, rgba(71, 85, 105, 0.6) 0%, rgba(100, 116, 139, 0.6) 100%);
-            border-radius: 50% 50% 50% 35%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(20px);
-        }
-
-        .profile-image-container {
-            width: 220px;
-            height: 260px;
-            background: white;
-            border-radius: 20px 20px 80px 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-details {
-            position: absolute;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            background: rgba(30, 58, 138, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 15px 30px;
-            border-radius: 16px;
-            white-space: nowrap;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .profile-details h4 {
-            color: white;
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .profile-details p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            margin-bottom: 3px;
-        }
-
-        .profile-details .profile-id {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
-        }
-
-        /* Talent Match Specific Styles */
-        .talent-match-container {
-            display: flex;
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
             gap: 40px;
-            align-items: flex-start;
-        }
-
-        .talent-card-wrapper {
-            flex: 0 0 520px;
+            align-items: start;
         }
 
         .talent-card {
             background: white;
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
         .talent-card h3 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            margin-bottom: 30px;
-            color: #1e293b;
+            margin-bottom: 25px;
         }
 
-        .talent-photo {
+        .talent-avatar {
             width: 100%;
             aspect-ratio: 1;
-            border-radius: 24px;
-            overflow: hidden;
-            margin-bottom: 25px;
-            background: #e2e8f0;
-        }
-
-        .talent-photo img {
-            width: 100%;
-            height: 100%;
+            border-radius: 20px;
             object-fit: cover;
+            margin-bottom: 20px;
         }
 
         .talent-name {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: #1e293b;
             margin-bottom: 5px;
         }
 
-        .talent-position {
-            font-size: 16px;
-            color: #64748b;
-            margin-bottom: 25px;
+        .talent-role {
+            color: #666;
+            margin-bottom: 20px;
         }
 
-        .talent-detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #e2e8f0;
+        .talent-info {
+            display: grid;
+            gap: 12px;
         }
 
-        .talent-detail-row:last-child {
-            border-bottom: none;
-        }
-
-        .talent-detail-label {
+        .info-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 10px;
             font-size: 14px;
-            color: #64748b;
         }
 
-        .talent-detail-value {
-            font-size: 14px;
-            color: #1e293b;
-            font-weight: 600;
-            text-align: right;
+        .info-label {
+            color: #999;
+        }
+
+        .info-value {
+            color: #333;
+            font-weight: 500;
         }
 
         .matching-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
         }
 
-        .circular-matching {
+        .matching-circle {
             position: relative;
-            width: 400px;
-            height: 400px;
-            margin-bottom: 40px;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto 40px;
         }
 
-        .circle-outer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px dashed rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: rotate 30s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .circle-middle {
+        .circle-ring {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 75%;
-            height: 75%;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(192, 132, 252, 0.4));
+            border: 3px dashed #B8A8D8;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            animation: rotate 20s linear infinite;
         }
 
-        .circle-inner {
-            width: 70%;
-            height: 70%;
-            background: linear-gradient(135deg, rgba(216, 180, 254, 0.6), rgba(233, 213, 255, 0.6));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .avatar-center {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 5px solid white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .avatar-center img {
+        .circle-ring:nth-child(1) {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+        }
+
+        .circle-ring:nth-child(2) {
+            width: 85%;
+            height: 85%;
+            background: linear-gradient(135deg, #9B7FC7 0%, #C8B3E0 100%);
+        }
+
+        .circle-ring:nth-child(3) {
+            width: 70%;
+            height: 70%;
+            background: linear-gradient(135deg, #C8B3E0 0%, #E6DCF2 100%);
+        }
+
+        .center-avatar {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55%;
+            height: 55%;
+            border-radius: 50%;
+            background: white;
+            padding: 8%;
+            z-index: 10;
+        }
+
+        .center-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
         }
 
         .star-icon {
             position: absolute;
-            width: 50px;
-            height: 50px;
-            background: #1e293b;
+            width: 40px;
+            height: 40px;
+            background: #2C3E50;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 22px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 18px;
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .star-icon:hover {
-            transform: scale(1.1);
-            background: #334155;
+        .star-icon:nth-child(4) {
+            top: 10%;
+            right: 25%;
+            animation-delay: 0s;
         }
 
-        .star-icon.star-1 { top: 5%; left: 50%; transform: translateX(-50%); }
-        .star-icon.star-2 { top: 50%; right: 5%; transform: translateY(-50%); }
-        .star-icon.star-3 { bottom: 5%; left: 50%; transform: translateX(-50%); }
-        .star-icon.star-4 { top: 50%; left: 5%; transform: translateY(-50%); }
+        .star-icon:nth-child(5) {
+            right: 5%;
+            top: 40%;
+            animation-delay: 0.5s;
+        }
 
-        .matching-description {
-            text-align: center;
-            max-width: 500px;
-            color: #1e293b;
+        .star-icon:nth-child(6) {
+            left: 5%;
+            top: 45%;
+            animation-delay: 1s;
+        }
+
+        .star-icon:nth-child(7) {
+            bottom: 15%;
+            right: 28%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .matching-text {
+            color: #333;
             font-size: 18px;
             line-height: 1.8;
             margin-bottom: 30px;
         }
 
-        .matching-description strong {
+        .matching-text strong {
             font-weight: 700;
         }
 
         .matching-buttons {
             display: flex;
             gap: 20px;
+            justify-content: center;
         }
 
-        .matching-btn {
+        .btn-matching {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 15px 35px;
+            gap: 10px;
+            padding: 12px 30px;
+            border-radius: 10px;
             border: none;
-            border-radius: 12px;
-            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            font-size: 15px;
         }
 
-        .matching-btn.btn-sistem {
-            background: linear-gradient(135deg, #06b6d4, #0891b2);
+        .btn-career {
+            background: linear-gradient(135deg, #4ECDC4 0%, #44B8A8 100%);
             color: white;
         }
 
-        .matching-btn.btn-sistem:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
-        }
-
-        .matching-btn.btn-ekspektasi {
-            background: linear-gradient(135deg, #0891b2, #0e7490);
+        .btn-education {
+            background: linear-gradient(135deg, #5B9DD6 0%, #4A8AC7 100%);
             color: white;
         }
 
-        .matching-btn.btn-ekspektasi:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.4);
+        .btn-matching:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
-        .integration-footer {
-            margin-top: 50px;
+        .footer-text {
             text-align: center;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-        }
-
-        .integration-footer p {
-            color: #1e293b;
-            font-size: 16px;
-            margin: 0;
-        }
-
-        .integration-footer strong {
-            font-weight: 700;
-        }
-
-        .siasn-logo {
-            display: inline-flex;
+            color: white;
+            margin-top: 40px;
+            display: flex;
             align-items: center;
-            gap: 8px;
-            margin-left: 8px;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
         }
 
-        @media (max-width: 1400px) {
-            .talent-match-container {
-                flex-direction: column;
-                align-items: center;
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
             }
 
-            .talent-card-wrapper {
-                flex: none;
-                width: 100%;
-                max-width: 520px;
+            .logo-text, .profile-details, .nav-link span {
+                display: none;
             }
 
-            .matching-section {
-                width: 100%;
+            .main-content {
+                margin-left: 80px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
             .sidebar {
-                width: 70px;
+                transform: translateX(-100%);
             }
 
-            .logo-text,
-            .nav-link span,
-            .profile-section {
-                display: none;
+            .sidebar.active {
+                transform: translateX(0);
             }
 
             .main-content {
-                margin-left: 70px;
+                margin-left: 0;
                 padding: 20px;
             }
 
-            .page-title {
-                font-size: 28px;
-            }
-
-            .circular-matching {
-                width: 300px;
-                height: 300px;
+            .matching-circle {
+                width: 250px;
+                height: 250px;
             }
 
             .matching-buttons {
                 flex-direction: column;
-                width: 100%;
-            }
-
-            .matching-btn {
-                width: 100%;
             }
         }
     </style>
@@ -704,32 +454,33 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">
+        <div class="logo-section">
+            <div class="logo-bars">
                 <div class="logo-bar"></div>
                 <div class="logo-bar"></div>
                 <div class="logo-bar"></div>
             </div>
             <div class="logo-text">
-                Talentegrity<br>ASN
+                Talentegrity<br>
+                <small>ASN</small>
             </div>
         </div>
 
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="index.html" class="nav-link" data-page="dashboard">
+                <a href="#" class="nav-link">
                     <i class="fas fa-th-large"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="talent.html" class="nav-link active" data-page="talent-match">
-                    <i class="fas fa-users"></i>
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-user-friends"></i>
                     <span>Talent Match</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link" data-page="inbox">
+                <a href="#" class="nav-link">
                     <i class="fas fa-inbox"></i>
                     <span>Inbox</span>
                 </a>
@@ -737,181 +488,150 @@
         </ul>
 
         <div class="profile-section">
-            <div class="profile-label">Profile</div>
             <div class="profile-card">
-                <div class="profile-avatar">U</div>
                 <div class="profile-info">
-                    <h6>User</h6>
-                    <p>user@example.com</p>
+                    <img src="https://ui-avatars.com/api/?name=User&background=4A7FE8&color=fff&size=100" alt="User" class="profile-avatar">
+                    <div class="profile-details">
+                        <h6>User</h6>
+                        <p>user@example.com</p>
+                    </div>
                 </div>
+                <button class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Log out
+                </button>
             </div>
-            <button class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Log out
-            </button>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Dashboard Page -->
-        <div id="dashboard-page" class="page-content" style="display: none;">
-            <div class="header">
-                <div class="header-title">
-                    <h1>Dashboard</h1>
-                    <p class="header-subtitle">Informasi seputar Manajemen Talenta</p>
+        <h1 class="page-title">Talent Match</h1>
+
+        <div class="content-grid">
+            <!-- Talent Card -->
+            <div class="talent-card">
+                <h3>Talent Card</h3>
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop" alt="Sophie Bennett" class="talent-avatar">
+                
+                <h4 class="talent-name">Sophie Bennett</h4>
+                <p class="talent-role">Pranata Humas Madya</p>
+
+                <div class="talent-info">
+                    <div class="info-row">
+                        <span class="info-label">Pendidikan</span>
+                        <span class="info-value">S-2 Ilmu Komunikasi</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Pangkat/Gol</span>
+                        <span class="info-value">Penata / IVa</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Kompetensi</span>
+                        <span class="info-value">Informasi Teknologi, Kepegawaian</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Sertifikasi</span>
+                        <span class="info-value">CCNA</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Penghargaan</span>
+                        <span class="info-value">Pegawai teladan 2024</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Penilaian Potensi</span>
+                        <span class="info-value">Sangat Berkompeten</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Unit Kerja</span>
+                        <span class="info-value">Dinas kepergian</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Box</span>
+                        <span class="info-value">9</span>
+                    </div>
                 </div>
-                <div class="search-box">
-                    <input type="text" placeholder="Ingin Mencari sesuatu??" id="searchInput">
-                    <button onclick="performSearch()">
-                        <i class="fas fa-search"></i>
+            </div>
+
+            <!-- Matching Section -->
+            <div class="matching-section">
+                <div class="matching-circle">
+                    <div class="circle-ring"></div>
+                    <div class="circle-ring"></div>
+                    <div class="circle-ring"></div>
+                    <div class="center-avatar">
+                        <img src="https://ui-avatars.com/api/?name=User&background=FFC0CB&color=8B4513&size=200&bold=true&format=svg&rounded=true&font-size=0.4" alt="User Avatar">
+                    </div>
+                    <div class="star-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="star-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="star-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="star-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="matching-text">
+                    <strong>Kompetensi</strong> akan mengikuti<br>
+                    <strong>Jabatan</strong> yang sesuai, Mulai<br>
+                    Lakukan perjalanan Karir Kamu,<br>
+                    Melalui Manajemen Talenta?
+                </div>
+
+                <div class="matching-buttons">
+                    <button class="btn-matching btn-career">
+                        <i class="fas fa-star"></i>
+                        Matching Career
+                    </button>
+                    <button class="btn-matching btn-education">
+                        <i class="fas fa-star"></i>
+                        Matching Career
                     </button>
                 </div>
             </div>
-
-            <div class="welcome-card">
-                <div class="welcome-content">
-                    <h2>Selamat Datang Alexander</h2>
-                    <p class="welcome-text">
-                        <strong>Integrity is your strongest access key.</strong>
-                    </p>
-                    <p class="welcome-subtext">
-                        Jaga selalu integritas, kerahasiaan data, dan profesionalisme dalam setiap tindakan. Kepercayaan dimulai dari tanggung jawab Anda.
-                    </p>
-
-                    <div class="stats-container">
-                        <div class="stat-card" onclick="viewApplications()">
-                            <div class="stat-info">
-                                <h6>On Going Aplications</h6>
-                                <div class="stat-number">1</div>
-                            </div>
-                            <div class="stat-icon">
-                                <i class="fas fa-cog"></i>
-                            </div>
-                        </div>
-
-                        <div class="stat-card" onclick="viewAlerts()">
-                            <div class="stat-info">
-                                <h6>Integrity Alert</h6>
-                                <div class="stat-number">2</div>
-                            </div>
-                            <div class="stat-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="profile-display">
-                    <div class="profile-circle">
-                        <div class="profile-image-container">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop" alt="Sophie Bennett">
-                        </div>
-                    </div>
-                    <div class="profile-details">
-                        <h4>Sophie Bennett</h4>
-                        <p>Pranata Humas Madya</p>
-                        <p class="profile-id">1997XXI213XX212</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <!-- Talent Match Page -->
-        <div id="talent-match-page" class="page-content">
-            <h1 class="page-title">Talent Match</h1>
-
-            <div class="talent-match-container">
-                <div class="talent-card-wrapper">
-                    <div class="talent-card">
-                        <h3>Talent Card</h3>
-                        
-                        <div class="talent-photo">
-                            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=500&fit=crop" alt="Sophie Bennett">
-                        </div>
-
-                        <div class="talent-name">Sophie Bennett</div>
-                        <div class="talent-position">Pranata Humas Madya</div>
-
-                        <div class="talent-details">
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Pendidikan</span>
-                                <span class="talent-detail-value">S-2 Ilmu Komunikasi</span>
-                            </div>
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Pangkat/Gol</span>
-                                <span class="talent-detail-value">Penata / IVa</span>
-                            </div>
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Kompetensi</span>
-                                <span class="talent-detail-value">Informasi Teknologi, Kepegawaian</span>
-                            </div>
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Sertifikasi</span>
-                                <span class="talent-detail-value">CCNA</span>
-                            </div>
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Penghargaan</span>
-                                <span class="talent-detail-value">Pegawai teladan 2024</span>
-                            </div>
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Penilaian Potensi</span>
-                                <span class="talent-detail-value">Sangat Berkompeten</span>
-                            </div>
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Unit Kerja</span>
-                                <span class="talent-detail-value">Dinas kepergian</span>
-                            </div>
-                            <div class="talent-detail-row">
-                                <span class="talent-detail-label">Box</span>
-                                <span class="talent-detail-value">9</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="matching-section">
-                    <div class="circular-matching">
-                        <div class="circle-outer"></div>
-                        
-                        <div class="circle-middle">
-                            <div class="circle-inner">
-                                <div class="avatar-center">
-                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie" alt="Avatar">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="star-icon star-1" title="Kompetensi"><i class="fas fa-star"></i></div>
-                        <div class="star-icon star-2" title="Pengalaman"><i class="fas fa-star"></i></div>
-                        <div class="star-icon star-3" title="Pendidikan"><i class="fas fa-star"></i></div>
-                        <div class="star-icon star-4" title="Sertifikasi"><i class="fas fa-star"></i></div>
-                    </div>
-
-                    <div class="matching-description">
-                        <strong>Kompetensi</strong> akan mengikuti <strong>Jabatan</strong> yang sesuai, Mulai Lakukan perjalanan Karir Kamu, Melalui Manajemen Talenta?
-                    </div>
-
-                    <div class="matching-buttons">
-                        <button class="matching-btn btn-sistem" onclick="matchSystem()">
-                            <i class="fas fa-star"></i>
-                            <span>Matching Career<br>SISTEM</span>
-                        </button>
-                        <button class="matching-btn btn-ekspektasi" onclick="matchExpectation()">
-                            <i class="fas fa-star"></i>
-                            <span>Matching Career<br>EKSPEKTASI</span>
-                        </button>
-                    </div>
-
-                    <div class="integration-footer">
-                        <p>
-                            Terintegrasi dengan 
-                            <strong>SIASN</strong>
-                            <span class="siasn-logo">
-                                <i class="fas fa-cog"></i>
-                                <span style="color: #fbbf24; font-weight: 700;">SIASN</span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
+        <div class="footer-text">
+            Terintegrasi dengan SIASN <i class="fas fa-cog"></i> SLJSN
         </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Logout functionality
+            const logoutBtn = document.querySelector('.logout-btn');
+            logoutBtn.addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin logout?')) {
+                    alert('Logout berhasil!');
+                    // Add actual logout logic here
+                }
+            });
+
+            // Matching buttons functionality
+            const matchingButtons = document.querySelectorAll('.btn-matching');
+            matchingButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const buttonText = this.textContent.trim();
+                    alert(`Melakukan ${buttonText}...`);
+                    // Add actual matching logic here
+                });
+            });
+
+            // Navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
